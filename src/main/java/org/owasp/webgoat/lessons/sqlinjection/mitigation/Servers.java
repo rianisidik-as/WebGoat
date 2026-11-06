@@ -67,12 +67,36 @@ public class Servers {
   public List<Server> sort(@RequestParam String column) throws Exception {
     List<Server> servers = new ArrayList<>();
 
+    String orderColumn;
+    switch (column == null ? "" : column.trim().toLowerCase(java.util.Locale.ROOT)) {
+      case "id":
+        orderColumn = "id";
+        break;
+      case "hostname":
+        orderColumn = "hostname";
+        break;
+      case "ip":
+        orderColumn = "ip";
+        break;
+      case "mac":
+        orderColumn = "mac";
+        break;
+      case "status":
+        orderColumn = "status";
+        break;
+      case "description":
+        orderColumn = "description";
+        break;
+      default:
+        throw new IllegalArgumentException("Invalid input");
+    }
+
     try (var connection = dataSource.getConnection()) {
       try (var statement =
           connection.prepareStatement(
               "select id, hostname, ip, mac, status, description from SERVERS where status <> 'out"
                   + " of order' order by "
-                  + column)) {
+                  + orderColumn)) {
         try (var rs = statement.executeQuery()) {
           while (rs.next()) {
             Server server =
