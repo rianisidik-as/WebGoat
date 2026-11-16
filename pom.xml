@@ -147,6 +147,7 @@
     <xml-resolver.version>1.2</xml-resolver.version>
     <xstream.version>1.4.5</xstream.version>
     <!-- do not update necessary for lesson -->
+    <undertow.version>2.3.25.Final</undertow.version>
     <zxcvbn.version>1.7.0</zxcvbn.version>
   </properties>
 
